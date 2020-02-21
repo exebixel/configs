@@ -1,0 +1,8 @@
+configuration {
+	modi: "window,drun";
+	show-icons: true;
+	case-sensitive: false;
+	theme: "Arc-Dark";	
+	icon-theme: "Arc";
+	combi-modi: "window";
+}
