@@ -1,9 +1,14 @@
 # configs exebixel
 
-Para instalar as configs \n
-Requisitos: arch linux \n
+Para instalar as configs
 
-comandos: \n
+Requisitos: arch linux 
+
+comandos: 
+
   git clone https://github.com/exebixel/configs.git
-  cd configs \n
-  ./install.sh \n
+  
+  cd configs 
+  
+  ./install.sh 
+  
