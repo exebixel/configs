@@ -6,7 +6,7 @@ YAYPACKS="siji-git"
 
 echo $HOME
 sudo pacman -Syu $PACKS --noconfirm
-yay -S $YAYPACKS--noconfirm
+yay -S $YAYPACKS --noconfirm
 
 cp -rv i3 $HOME/.config/
 cp -rv polybar $HOME/.config/
