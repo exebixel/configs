@@ -1,7 +1,9 @@
 #!/bin/bash
 
+echo "[archlinuxcn]\nServer = http://repo.archlinuxcn.org/$arch" | sudo tee /etc/pacman.conf
+
 PACKS="i3-gaps polybar xfce4-notifyd \
-	flameshot playerctl rofi feh"
+	flameshot playerctl rofi feh scrot"
 YAYPACKS="siji-git"
 
 echo $HOME
