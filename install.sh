@@ -6,7 +6,6 @@ PACKS="i3-gaps polybar xfce4-notifyd \
 	flameshot playerctl rofi feh scrot"
 YAYPACKS="siji-git"
 
-echo $HOME
 sudo pacman -Syu $PACKS --noconfirm
 yay -S $YAYPACKS --noconfirm
 
