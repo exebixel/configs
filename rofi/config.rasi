@@ -3,6 +3,10 @@ configuration {
 	show-icons: true;
 	case-sensitive: false;
 	theme: "Arc-Dark";	
-	icon-theme: "Arc";
+	icon-theme: "Papirus";
 	combi-modi: "window";
+    location: 1;
+    xoffset: 10;
+    yoffset: 30;
+    width: 25;
 }
