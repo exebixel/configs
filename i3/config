@@ -64,6 +64,7 @@ bindsym $mod+$Alt+s exec slack
 bindsym $mod+$Alt+f exec nemo
 bindsym $mod+$Alt+Shift+f exec i3-sensible-terminal -x ranger
 bindsym $mod+$Alt+Shift+m exec i3-sensible-terminal -x ncmpcpp
+bindsym $mod+$Alt+Shift+v exec i3-sensible-terminal -x pulsemixer
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -78,6 +79,7 @@ client.background       #ffffff
 title_align center
 #hide_edge_borders both
 default_border pixel 2
+default_orientation vertical
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
