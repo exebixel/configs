@@ -28,7 +28,7 @@ font pango:monospace 8
 #exec --no-startup-id nm-applet
 
 # Start Polybar
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 #Start xfce4-notifyd
 exec /usr/lib/xfce4/notifyd/xfce4-notifyd
@@ -52,6 +52,8 @@ bindsym $Alt+p exec --no-startup-id playerctl play-pause
 bindsym $Alt+o exec --no-startup-id playerctl stop
 bindsym $Alt+n exec --no-startup-id playerctl next
 bindsym $Alt+Shift+n exec --no-startup-id playerctl previous
+# MPD shotcup
+bindsym $Alt+Shift+p exec --no-startup-id mpc toggle
 
 # Shotcuts of apps
 bindsym $mod+$Alt+t exec telegram-desktop
