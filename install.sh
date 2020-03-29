@@ -26,3 +26,7 @@ cp -rv polybar/fonts/* $HOME/.local/share/fonts
 hub clone stark/siji
 cd siji
 ./install.sh -d ~/.local/share/fonts
+
+#set whallpaper 
+cp -v whallpaper .config
+feh --bg-fill ~/.config/whallpaper
