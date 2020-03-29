@@ -7,7 +7,7 @@ echo "[archlinuxcn]\nServer = http://repo.archlinuxcn.org/$arch" | sudo tee /etc
 #official and archlinxcn repos
 PACKS="i3-gaps polybar xfce4-notifyd \
 	flameshot playerctl rofi feh scrot \
-    hub xorg-xfd"
+    hub xorg-xfd ranger pulsemixer ncmpcpp"
 #AUR
 YAYPACKS="siji-git"
 
