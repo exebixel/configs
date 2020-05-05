@@ -36,6 +36,9 @@ exec /usr/lib/xfce4/notifyd/xfce4-notifyd
 #Set Whallpaper
 exec ~/.fehbg
 
+#Num Lock on
+exec --no-startup-id numlockx on &
+
 # Use pactl to adjust volume in PulseAudio.
 # Playerctl shortcuts 
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -58,36 +61,41 @@ bindsym $Alt+Shift+p exec --no-startup-id mpc toggle
 # Shotcuts of apps
 bindsym $mod+$Alt+t exec telegram-desktop
 bindsym $mod+$Alt+w exec whatsapp-nativefier-dark
+bindsym $mod+$Alt+d exec discord
 bindsym $mod+$Alt+m exec rhythmbox
-bindsym $mod+$Alt+b exec qutebrowser
+bindsym $mod+$Alt+Shift+b exec qutebrowser
+bindsym $mod+$Alt+b exec google-chrome-stable
 bindsym $mod+$Alt+s exec slack
 bindsym $mod+$Alt+f exec nemo
-bindsym $mod+$Alt+Shift+f exec i3-sensible-terminal -x ranger
-bindsym $mod+$Alt+Shift+m exec i3-sensible-terminal -x ncmpcpp
-bindsym $mod+$Alt+Shift+v exec i3-sensible-terminal -x pulsemixer
-
-# class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
-client.background       #ffffff
+bindsym $mod+$Alt+Shift+f exec i3-sensible-terminal -e ranger
+bindsym $mod+$Alt+Shift+m exec i3-sensible-terminal -e ncmpcpp
+bindsym $mod+$Alt+Shift+v exec i3-sensible-terminal -e pulsemixer
 
 # Settings of appearence
 title_align center
-#hide_edge_borders both
-default_border pixel 2
 default_orientation vertical
+#gaps
+for_window [class=".*"] border pixel 2
+smart_borders on
+hide_edge_borders smart_no_gaps
+gaps inner 5
+# colors
+# class                 border  bground text    indicator child_border
+client.focused          #2E27F4 #2E27F4 #FFFFFF #2E27F4   #2E27F4
+client.focused_inactive #333333 #222222 #FFFFFF #292D2E   #5F676A
+client.unfocused        #333333 #222222 #FFFFFF #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 #printScreen
 #bindsym Print exec flameshot full -c
-bindsym Shift+Print exec flameshot gui
-bindsym --release Print exec scrot -p 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/.cache/scrot  && mv $f ~/.cache/scrot  && xclip -selection clipboard -t image/png -i ~/.cache/scrot/`ls -1 -t ~/.cache/scrot  | head -1`'
+bindsym Shift+Print exec flameshot gui -p ~/Pictures/screenshot
+bindsym --release Print exec scrot -p 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshot  && mv $f ~/Pictures/screenshot  && xclip -selection clipboard -t image/png -i ~/Pictures/screenshot/`ls -1 -t ~/Pictures/screenshot  | head -1`'
 #bindsym --release Shift+Print exec scrot -sf -p 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/.cache/scrot && mv $f ~/.cache/scrot && xclip -selection clipboard -t image/png -i ~/.cache/scrot/`ls -1 -t ~/.cache/scrot | head -1`'
 
 
