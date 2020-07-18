@@ -1,87 +1,199 @@
-"""""""""""""""""""" 1) Configurações gerais """"""""""""""""""""
-"
+"""""""""""""""""""" Configurações gerais """"""""""""""""""""
+
 " Usa as definições do vim, não as do vi
 set nocompatible
-"
-" Define o tamanho do histórico de comandos do vim:
-set history=1000
-"  
+
 " Habilita o reconhecimento de arquivos
 filetype plugin on
 filetype indent on
-"
-" Recarrega o arquivo caso ele seja editado por um programa externo enquanto aberto
+
+" Map leader to ,
+let mapleader=','
+
+" Preserva o histórico do desfazer após o fim da sessão atual salvando-o em um arquivo
+set undodir=~/.vim/undobackups
+set undofile
+
+set hidden
+
+" Vim plug
+call plug#begin(expand('~/.vim/plugged'))
+
+" Utilidade
+Plug 'tpope/vim-commentary'
+Plug 'majutsushi/tagbar'
+Plug 'w0rp/ale', { 'do': 'pip install flake8 isort yapf' }
+Plug 'airblade/vim-gitgutter'
+
+" Visual
+Plug 'ap/vim-buftabline'
+Plug 'sheerun/vim-polyglot'
+Plug 'tomasr/molokai'
+Plug 'Yggdroot/indentLine'
+
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
+endif
+
+" C plugs
+Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+Plug 'ludwig/split-manpage.vim'
+
+" Python
+Plug 'davidhalter/jedi-vim'
+
+call plug#end()
+
+"""""""""""""""""""""""""""""""" Atalhos """""""""""""""""""""""
+
+"" fzf.vim
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "fd --type f --hidden --follow --exclude .git"
+
+"" Lembrar posição do cursor
+augroup vimrc-remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+"" Recarrega o arquivo caso ele seja editado por um programa externo enquanto aberto
 set autoread
-"
-" Habilita o uso do mouse no vim para cliques e coisas do tipo
-"set mouse=a
-"
-"""""""""""""""""""" 1) Configurações gerais """"""""""""""""""""
 
-"""""""""""""""""""" 2) Interface do vim """""""""""""""""""""
-"
-" Ativa o menu WiLd (entre outras coisas, ativa <Ctrl>n e <Ctrl>p para navegar entre as correspondências da busca
-set wildmenu
-"
-" Sempre mostra a posição atual do cursor
-set ruler
-"
-" Altura da barra de comandos
-set cmdheight=1
-"
-" Configurando a tecla <Backspace> para o que ela tem que fazer
-set backspace=eol,start,indent
-"set whichwrap+=<,>,h,l
-"
-" Destaca os resultados da busca
-set hlsearch
-"
-" Habilita expressões regulares
-set magic
-"
-" Destaca pares de colchetes ao passar o cursor, e configura o tempo do destaque em décimos de segundo
-set showmatch
-set mat=10
-"
-"""""""""""""""""""" 2) Interface do vim """""""""""""""""""""
+" ale
+" let g:ale_linters = {}
 
-"""""""""""""""""""" 3) Cores e fontes """"""""""""""""""""
-"
+"" Buffer nav
+noremap <leader>z :bp<CR>
+noremap <leader>q :bp<CR>
+noremap <leader>x :bn<CR>
+noremap <leader>w :bn<CR>
+
+"" Fechar buffer
+noremap <leader>c :bd<CR>
+
+"" Clean search (highlight)
+nnoremap <silent> <leader><space> :noh<cr>
+
+"" Movimentação em janelas
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+
+"" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
+
+"" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+"" Split
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+
+"" Toggle tagbar
+nmap <silent> <F4> :TagbarToggle<CR>
+
+cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>e :FZF -m<CR>
+
+"Recovery commands from history through FZF
+nmap <leader>y :History:<CR>
+
+" Copia/ Colar
+noremap YY "+y<CR>
+noremap <leader>p "+gP<CR>
+noremap XX "+x<CR>
+
+" Deixa o cursor fixo na linha central da tela
+set scrolloff=5
+:nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+
+"""""""""""""""""""" Interface """"""""""""""""""""
+
 " Ativa a numeração das linhas
-set number
-"
+set number relativenumber
+
+" Define spellcheck para português e inglês
+set spell spelllang=en_us,pt_br
 " Habilita o destaque de sintaxe
 syntax enable
-"
+
+" Tempo de atualização 100ms
+set updatetime=100 
+
 " Esquema de cores do vim
-"colorscheme desert
 set background=dark
-"
-" Desativa a quebra de linha automática (comentado por padrão)
+colorscheme molokai
+hi TabLineFill ctermfg=Black ctermbg=DarkGreen	
+hi TabLine ctermfg=White ctermbg=Black
+hi TabLineSel ctermfg=White ctermbg=DarkGrey
+
+" Desativa a quebra de linha automática
 set nolinebreak
 set nowrap
 set formatoptions-=t
-"
-" Permite a navegação dentro de uma mesma linha longa com j e k
-"set wrap
-"
-"""""""""""""""""""" 3) Cores e fontes """"""""""""""""""""
 
-"""""""""""""""""""" 4) Texto e tabulações """"""""""""""""""""
-"
-" Insere espaços no lugar de caracteres de tabulação
-set expandtab
-"
 " Uso inteligente de tabulações
 set smarttab
-"
+
 " Define uma tabulação como sendo 4 espaços
 set shiftwidth=4
 set tabstop=4
-"
-"""""""""""""""""""" 4) Texto e tabulações """"""""""""""""""""
 
-"""""""""""""""""""" 5) Linha de status """"""""""""""""""""
+" Sempre mostra a posição atual do cursor
+set ruler
+
+" Destaca os resultados da busca
+set hlsearch
+
+" Ativa o menu WiLd (entre outras coisas, ativa <Ctrl>n e <Ctrl>p para navegar entre as correspondências da busca
+set wildmenu
+
+"" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Altura da barra de comandos
+set cmdheight=1
+
+" Configurando a tecla <Backspace> para o que ela tem que fazer
+set backspace=eol,start,indent
+
+" Habilita expressões regulares
+set magic
+
+" Destaca pares de colchetes ao passar o cursor, e configura o tempo do destaque em décimos de segundo
+set showmatch
+set mat=10
+
+" ale
+let g:ale_linters = {}
+" Disable warnings about trailing whitespace for Python files.
+let b:ale_warn_about_trailing_whitespace = 0 
+:call extend(g:ale_linters, {
+    \'python': ['flake8'], })
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   'python': [
+\       'isort',
+\       'yapf',
+\       'remove_trailing_lines',
+\       'trim_whitespace'
+\   ]
+\}
+
+
+"""""""""""""""""""" Linha de status """"""""""""""""""""
 "
 " Sempre mostra a linha de status
 set laststatus=2
@@ -109,13 +221,4 @@ set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ %l:%c
-set statusline+=\ 
-"
-"""""""""""""""""""" 5) Linha de status """"""""""""""""""""
-
-"""""""""""""""""""" 6) Desfazer persistente """"""""""""""""""""
-"
-" Preserva o histórico do desfazer após o fim da sessão atual salvando-o em um arquivo
-set undodir=~/.vim/undobackups
-set undofile
-"
+set statusline+=\
