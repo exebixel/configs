@@ -1,0 +1,15 @@
+#!/bin/sh
+case $1 in
+    off)
+        xmodmap -e "clear lock"
+        xmodmap -e "keycode 0x42 = Escape"
+        ;;
+    on)
+        xmodmap -e "keycode 0x42 = Caps_Lock"
+        xmodmap -e "add lock = Caps_Lock"
+        ;;
+    *)
+        echo "Uso: caps {on|off}, liga e desliga o Caps Lock"
+        echo "Quando desligado, ele funciona como a tecla Esc"
+        ;;
+esac
