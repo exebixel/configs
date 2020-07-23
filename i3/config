@@ -62,14 +62,14 @@ bindsym $Alt+Shift+p exec --no-startup-id mpc toggle
 bindsym $mod+$Alt+t exec telegram-desktop
 bindsym $mod+$Alt+w exec whatsapp-nativefier-dark
 bindsym $mod+$Alt+d exec discord
-bindsym $mod+$Alt+m exec rhythmbox
+# bindsym $mod+$Alt+m exec rhythmbox
 bindsym $mod+$Alt+Shift+b exec qutebrowser
 bindsym $mod+$Alt+b exec opera
 bindsym $mod+$Alt+s exec slack
 bindsym $mod+$Alt+f exec nemo
 bindsym $mod+$Alt+Shift+f exec i3-sensible-terminal -e ranger
-bindsym $mod+$Alt+Shift+m exec i3-sensible-terminal -e ncmpcpp
-bindsym $mod+$Alt+Shift+v exec i3-sensible-terminal -e pulsemixer
+bindsym $mod+$Alt+m exec i3-sensible-terminal -e ncmpcpp
+bindsym $mod+$Alt+v exec i3-sensible-terminal -e pulsemixer
 
 # Settings of appearence
 title_align center
