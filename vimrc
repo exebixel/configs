@@ -20,6 +20,9 @@ set hidden
 call plug#begin(expand('~/.vim/plugged'))
 
 " Utilidade
+Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
 Plug 'w0rp/ale', { 'do': 'pip install flake8 isort yapf' }
@@ -31,16 +34,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tomasr/molokai'
 Plug 'Yggdroot/indentLine'
 
-if isdirectory('/usr/local/opt/fzf')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " C plugs
 Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
-Plug 'ludwig/split-manpage.vim'
 
 " Python
 Plug 'davidhalter/jedi-vim'
@@ -62,9 +60,6 @@ augroup END
 
 "" Recarrega o arquivo caso ele seja editado por um programa externo enquanto aberto
 set autoread
-
-" ale
-" let g:ale_linters = {}
 
 "" Buffer nav
 noremap <leader>z :bp<CR>
@@ -114,7 +109,6 @@ noremap XX "+x<CR>
 " Deixa o cursor fixo na linha central da tela
 set scrolloff=5
 :nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
-
 
 """""""""""""""""""" Interface """"""""""""""""""""
 
@@ -176,6 +170,11 @@ set magic
 set showmatch
 set mat=10
 
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 " ale
 let g:ale_linters = {}
 " Disable warnings about trailing whitespace for Python files.
@@ -197,20 +196,12 @@ let g:ale_fixers = {
 "
 " Sempre mostra a linha de status
 set laststatus=2
-"
-" Formato da linha de status
-function! GitBranch()
-      return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
 
-function! StatuslineGit()
-    let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
+let branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n' | sed -e 's/^/  /' -e 's/\$/ /'")
 
 set statusline=
 set statusline+=%#PmenuSel#
-set statusline+=%{StatuslineGit()}
+set statusline+=%{branchname}
 set statusline+=%#LineNr#
 set statusline+=\ %f
 set statusline+=%m\
