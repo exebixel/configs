@@ -39,6 +39,9 @@ exec ~/.fehbg
 #Num Lock on
 exec --no-startup-id numlockx on &
 
+# play music
+# exec --no-startup-id mpc play &
+
 # Use pactl to adjust volume in PulseAudio.
 # Playerctl shortcuts 
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -50,12 +53,12 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioPause exec --no-startup-id playerctl stop
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-# Playerctl shotcuts alternative
-bindsym $Alt+p exec --no-startup-id mpc toggle
-bindsym $Alt+o exec --no-startup-id mpc stop
-bindsym $Alt+n exec --no-startup-id mpc next
-bindsym $Alt+Shift+n exec --no-startup-id mpc prev
-# MPD shotcup
+
+# MPD shortcut
+bindsym $mod+p exec --no-startup-id mpc toggle
+# bindsym $Alt+o exec --no-startup-id mpc stop
+# bindsym $Alt+n exec --no-startup-id mpc next
+# bindsym $Alt+Shift+n exec --no-startup-id mpc prev
 # bindsym $Alt+Shift+p exec --no-startup-id mpc toggle
 
 # Shotcuts of apps
@@ -74,17 +77,22 @@ bindsym $mod+$Alt+v exec i3-sensible-terminal --class "pulsemixer" -e pulsemixer
 
 # Configuration of specific windows 
 for_window [instance="ncmpcpp"] floating enable
-for_window [instance="ncmpcpp"] move position center
 for_window [instance="ncmpcpp"] resize set 1200 800 
 for_window [instance="ncmpcpp"] move position center
 for_window [instance="pulsemixer"] floating enable
 for_window [instance="pulsemixer"] resize set 1200 500 
 for_window [instance="pulsemixer"] move position center
-for_window [title="WhatsApp"] focus parent, layout splith
+for_window [title="WhatsApp"] layout splith
 for_window [title="DevTools*"] layout splith
 for_window [instance="Alacritty"] layout splitv
-for_window [instance="libreoffice"] layout tabbed
+# for_window [instance="libreoffice"] layout tabbed
 for_window [instance="gnome-calculator"] floating enable
+for_window [instance="PacketTracer7"] floating enable
+for_window [instance="PacketTracer7"] resize set 1000 800
+for_window [instance="PacketTracer7"] move position center
+for_window [instance="system-config-printer"] floating enable
+for_window [instance="Steam"] floating enable
+for_window [instance="Steam"] move position center
 
 # Settings of appearence
 title_align center
@@ -93,7 +101,10 @@ default_orientation vertical
 for_window [class=".*"] border pixel 2
 smart_borders on
 hide_edge_borders smart_no_gaps
+gaps top 21
+gaps bottom 21
 gaps inner 5
+border_radius 10
 
 # colors
 # class                 border  bground text    indicator child_border
@@ -130,8 +141,17 @@ bindsym $mod+d exec rofi -show drun
 # Switch Workspaces
 bindsym $mod+apostrophe 		workspace back_and_forth
 bindsym $mod+Tab                workspace next
-bindsym $mod+Shift+Tab          workspace prev 
+bindsym $mod+Shift+Tab          workspace prev
+bindsym --whole-window button2  workspace next
+# bindsym --whole-window button9  workspace prev 
 bindsym $alt+Tab          		exec --no-startup-id ~/.local/bin/i3_cycle_windows
+
+# Scratchpad
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
 
 # change focus
 bindsym $mod+h focus left
@@ -173,6 +193,9 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+
+# toggle stick mode 
+bindsym $mod+s sticky toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -227,6 +250,21 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+# mode "music" {
+#     bindsym p exec --no-startup-id mpc toggle
+#     bindsym o exec --no-startup-id mpc stop
+#     bindsym n exec --no-startup-id mpc next
+#     bindsym Shift+n exec --no-startup-id mpc prev
+#     bindsym r exec --no-startup-id mpc repeat
+#     bindsym s exec --no-startup-id mpc single
+
+#     bindsym Escape mode "default"
+#     bindsym Return mode "default"
+#     bindsym $mod+m mode "default"
+# }
+# bindsym $mod+m mode "music"
+
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -235,16 +273,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
