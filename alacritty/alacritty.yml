@@ -41,9 +41,17 @@ auto_scroll: false
 
 dynamic_padding: false
 
+title: Alacritty
+dymanic_title: false
+
+class: 
+  instance: Alacritty
+  general: Alacritty
+
 cursor:
   style: Block
   vi_mode_style: None
+
 key_bindings:
   - {key: J, mods: Alt, action: ScrollLineDown }
   - {key: K, mods: Alt, action: ScrollLineUp }
